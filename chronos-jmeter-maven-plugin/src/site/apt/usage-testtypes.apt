@@ -1,0 +1,113 @@
+Implementing a test script in JMeter
+
+    Chronos supports all types of test scripts that are supported by JMeter.
+    The most frequently used types are mentioned below.
+    See the JMeter documentation for further details on these and other types.
+
+* HTTP Sampler
+
+    This is a test invoking http directly, using the JMeter HTTPSampler against a (remote)
+    application server. This kind of test is very easy to set up. But it may lack the
+    necessary flexibility for Your usecase.
+
+* JUnit Sampler
+
+    This kind of test is implemented as a JUnit TestCase. All configuration of the test is inferred
+    from the definition and invocation of the TestCase.
+
+    A simple (almost minimal) example is the following:
+
+---------------------------
+
+public class AppJunitSample extends TestCase {
+    static int count = 0;
+
+    public AppJunitSample()
+    {
+
+    }
+
+    public AppJunitSample(String name)
+    {
+        super(name);
+    }
+
+    public void setUp()
+    {
+    }
+
+    public void tearDown()
+    {
+    }
+
+
+    public void testApp() {
+        long sleepTime = ++count;
+        try {
+            Thread.sleep(sleepTime/1000 + 50 *  ((int)Math.random()));
+        }
+        catch ( InterruptedException e )
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
+
+---------------------------
+
+    You should be aware that even though JUnit supports protected setUp()/tearDown(),
+    that is NOT supported by JMeter.
+
+    The code should be available in test scope, typically by placing it inside src/test/java.
+
+
+* Java Sampler
+
+    A Java Sampler is a Test script implementing an API specified by JMeter, allowing full control
+    and configuration of the invocation. A Simple example of a script could be as follows:
+
+---------------------------
+public class TestSampler extends AbstractJavaSamplerClient
+{
+    public SampleResult runTest( JavaSamplerContext context )
+    {
+        HttpClient client = new DefaultHttpClient(  );
+        HttpGet get = new HttpGet( "http://localhost:8080/javasamplertest" );
+        SampleResult result = new SampleResult(  );
+        result.setSampleLabel( "testname" );
+        result.sampleStart();
+
+        final HttpResponse response;
+        try
+        {
+            response = client.execute( get );
+        }
+        catch ( IOException e )
+        {
+            return handleIOException( result, e );
+        }
+        result.setResponseCode( String.valueOf( response.getStatusLine().getStatusCode() ) );
+        result.setResponseMessage( response.getStatusLine().getReasonPhrase() );
+        result.setSuccessful( 200 == response.getStatusLine().getStatusCode() );
+        HttpEntity httpEntity = response.getEntity();
+        result.setBodySize( (int) httpEntity.getContentLength() );
+        try
+        {
+            parseContent( httpEntity );
+            result.sampleEnd();
+            return result;
+        }
+        catch ( IOException e )
+        {
+            return handleIOException( result, e );
+        }
+    }
+
+---------------------------
+
+    Using this API the developer is in  direct control of the output logged by JMeter. The code should
+    be placed in defult compile scope in Your maven project (src/main/java).
+
+    The drawback is that this requires a compile-time dependency on JMeter, which is not easily accessible
+    in common public maven repositories.
+

@@ -1,0 +1,65 @@
+Usage
+
+
+*  Introduction
+
+   Chronos allows generating nice reports of Your performancetests thus allowing to visualize performance.
+   This is done by executing performancetest, and later generating a report based on the results.
+
+*  Usage
+
+   The report is typically invoked by attaching it to the site-generation as seen in the example below.
+   See {{{./report-mojo.html}chronos:report}} for a more detailed specification of the possible parameters.
+
+   Most of the parameters control which parts of the report You want to hide, probably because they are deemed
+   irelevant for the test at hand.
+
+* Basic Configuration
+
+   The recommended basic configuration is as follows.
+   For more details concerning parameters see {{{./report-mojo.html}chronos:report}}
+   The example illustrates the parameters (with default values). :
+
+  Example:
+  
+-------------------
+<project>
+    ...
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${chronosversion}</version>
+				<configuration>
+					<dataid>perftest</dataid>
+					...
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			...
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-report-maven-plugin</artifactId>
+				<version>${chronosversion}</version>
+				<configuration>
+					<dataid>perftest</dataid>
+					...
+				</configuration>
+			</plugin>
+			...
+		</plugins>
+	</reporting>
+-------------------
+
+

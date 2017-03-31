@@ -1,0 +1,64 @@
+Customizing reports
+
+  The plugin contains several possibilities to customize the information shown in the report.
+  Default is to show as much information as possible.
+
+  For more details concerning parameters see {{{./report-mojo.html}chronos:report}}
+
+  This example is a report with not very much information...
+
+-------------------
+<project>
+  ...
+	<build>
+		<plugins>
+		    ...
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${chronosversion}</version>
+				<configuration>
+					<input>${basedir}/src/main/resources/simplewebplan.jmx</input>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-report-maven-plugin</artifactId>
+				<version>${chronosversion}</version>
+				<configuration>
+				    <description>This is the description of the generated report</description>
+				    <title>Report title</title>
+				    <showsummary>true</showsummary>
+				    <showdetails>false</showdetails>
+				    <showaverage>false</showaverage>
+				    <showpercentile95>false</showpercentile95>
+				    <showpercentile99>false</showpercentile99>
+				    <showhistogram>true</showhistogram>
+				    <showthroughput>false</showthroughput>
+				    <showgc>false</showgc>
+				</configuration>
+				<reportSets>
+				  <reportSet>
+				    <reports>
+				      <report>report</report>
+				    </reports>
+				  </reportSet>
+				</reportSets>
+			</plugin>
+			...
+		</plugins>
+	</reporting>
+</project>
+-------------------
+

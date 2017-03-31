@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>chronos-samples</artifactId>
+    <version>1.1.0</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>timersample</artifactId>
+  <version>1.1.0</version>
+
+  <dependencies>
+    <dependency>
+  			<groupId>junit</groupId>
+  			<artifactId>junit</artifactId>
+  		</dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-surefire-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
+        <configuration>
+          <includes>
+            <include>org/codehaus/mojo/chronos/timersample/**.java</include>
+          </includes>
+          <excludes>
+            <exclude>org/codehaus/mojo/chronos/timersample/*Exclude*.java</exclude>
+          </excludes>
+          <reports>
+            <report>org/codehaus/mojo/chronos/timersample/*Report*.java</report>
+          </reports>
+          <minimumexecutiontime>50</minimumexecutiontime>
+          <discrepancy>5</discrepancy>
+          <failbuild>false</failbuild>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>collect</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>chronos-report-maven-plugin</artifactId>
+        <version>${chronos.version}</version>
+        <configuration>
+          <showthroughput>false</showthroughput>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <id>timerreport</id>
+            <reports>
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>

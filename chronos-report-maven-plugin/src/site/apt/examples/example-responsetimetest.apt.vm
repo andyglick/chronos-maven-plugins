@@ -1,0 +1,59 @@
+Responsetime test.
+
+   A responsetime test is performed with a constant load on one or several services to validate their performance.
+
+   In this type of test the individual services are relevant, aggregated measures like throughput is less relevant.
+   We typically want to show both responsetime over time (to verify that they remain more or less constant over time), but also
+   histograms showing the distribution of responsetimes.
+
+-------------------
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                <version>${chronosversion}</version>
+                <configuration>
+                    <input>${basedir}/src/main/resources/responsetimetestplan.jmx</input>
+                    <dataid>responsetimetest</dataid>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>chronos-report-maven-plugin</artifactId>
+                <version>${chronosversion}</version>
+                <configuration>
+                    <title>Responsetime test</title>
+                    <description>This is an example of a responsetime test</description>
+                    <dataid>responsetimetest</dataid>
+                    <showsummary>true</showsummary>
+                    <showthroughput>false</showthroughput>
+                    <showdetails>true</showdetails>
+                    <showhistogram>true</showhistogram>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
+-------------------
+
+

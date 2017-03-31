@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+	<body>
+		<menu name="User guide">
+			<item name="Introduction" href="index.html" />
+			<item name="Basic usage" href="userguide/usage-basic.html" />
+      <item name="Customizing reports" href="userguide/usage-customreport.html" />
+      <item name="Report of historic data" href="userguide/usage-historicreport.html" />
+      <item name="Adding metadata" href="userguide/usage-metadata.html" />
+      <item name="Technical documentation" href="plugin-info.html" />
+		</menu>
+    <menu name="Examples">
+      <item name="Responsetime test" href="examples/example-responsetimetest.html" />
+      <item name="Ramp-up test" href="examples/example-rampuptest.html" />
+      <item name="Endurancetest" href="examples/example-endurancetest.html" />
+    </menu>
+		<menu ref="reports" />
+	</body>
+</project>

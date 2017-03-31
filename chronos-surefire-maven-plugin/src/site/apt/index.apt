@@ -1,0 +1,15 @@
+Chronos Surefire Maven Plugin
+
+   This plugin enables you to track and the executiontimes of a selection of Your unittests (JUnit or TestNG).
+
+   One usage is to regard some of your automatic testcases as performancetests, tracking their executiontimes.
+   Another usage is simply to monitor Your automatic tests to discover reasons for slow build times.
+
+   The plugin is functioning by analyzing the output from surefire when running unittests. Afterwards You may use chronos-report-maven-plugin
+   to create a visual representation of the results.
+
+
+* Goals Overview
+
+~~  General Information about the goals.
+  * {{{./collect-mojo.html}chronos-surefire:collect}} Collects the execution of the unittest and validates that thresholds have not been exceeded.

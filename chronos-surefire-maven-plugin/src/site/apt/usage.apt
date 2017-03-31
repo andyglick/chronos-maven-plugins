@@ -1,0 +1,11 @@
+Usage
+
+    The chronos-surefire plugin is used to track the execution times of unittests invoked by maven (surefire).
+
+    When using this plugin You should consider which testcases to include. You might want to simply include all testcases,
+    or You may want to include only a selected set of testcases, which have ben deemed as slow, or are specifically designed
+    to verify the performance of the system.
+
+    Another relevant switch to use is the minimumexecution time. If this time is set to, say 100 ms, only tests slower than this threshold is considered.
+    This is relevant when You want to ensure fast build times, since typically most testcases are pretty fast, and only a few are slow -
+    often due to IO traffic (newwork or database access).

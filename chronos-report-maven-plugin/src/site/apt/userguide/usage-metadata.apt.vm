@@ -1,0 +1,55 @@
+Meta data
+
+  Meta data can now be added to the generated report.
+
+  Meta data is added to the report by pointing to a metadata file through the <metadata> tag.
+
+  Example:
+
+-------------------
+<project>
+  ...
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>chronos-jmeter-maven-plugin</artifactId>
+				<version>${chronosversion}</version>
+				<configuration>
+				    <description>This is the description of the generated report</description>
+				    <title>Report title</title>
+				    <metadata>...\file containing metadata.txt</metadata>
+				</configuration>
+				<reportSets>
+				  <reportSet>
+				    <reports>
+				      <report>report</report>
+				    </reports>
+				  </reportSet>
+				</reportSets>
+			</plugin>
+			...
+		</plugins>
+	</reporting>
+</project>
+-------------------
+
+  The data in the metadata file is expected to the following format:
+
+  <<Key caption>><tab><<Key value>>
+
+  Example metadata file:
+
+-------------------
+Build no.	567
+Svn tag		Test
+-------------------
+
+  Results in following metadata:
+
+*----------+--------------+
+| Build no. | 567 |
+*----------+--------------+
+| Svn tag | Test |
+*----------*--------------+
+

@@ -1,0 +1,65 @@
+Ramp-up test.
+
+   A ramp-up test is performed to validate the optimum and maximum performance of Your system.
+
+   It is performed by gradually increasing the load while monitoring responsetimes and spikes in these,
+   until a stagnation of performance is reached.
+
+   In this type of test the individual requests are not relevant, we are more interested in the large picture. How does the
+   observed responsetimes and throughput change over time.
+
+   Histograms should also be disabled, since not very much can be concluded, when the test contains heterogenous requests
+   (heterogenous over time).
+
+   The resulting report will contain responsetime statistics (in table and graphic form), throughput and possibly garbage collection info.
+
+-------------------
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>chronos-jmeter-maven-plugin</artifactId>
+                <version>${chronosversion}</version>
+                <configuration>
+                    <input>${basedir}/src/main/resources/endurancetestplan.jmx</input>
+                    <dataid>rampuptest</dataid>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jmeter</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>chronos-report-maven-plugin</artifactId>
+                <version>${chronosversion}</version>
+                <configuration>
+                    <title>Ramp-up test</title>
+                    <description>This is an example of a ramp-up test</description>
+                    <dataid>rampuptest</dataid>
+                    <showsummary>true</showsummary>
+                    <showhistogram>false</showhistogram>
+                    <showdetails>false</showdetails>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
+-------------------
+
+
