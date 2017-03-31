@@ -76,7 +76,7 @@
     <module>chronos-report-maven-plugin</module>
     <module>chronos-jmeter-maven-plugin</module>
     <module>chronos-surefire-maven-plugin</module>
-    <module>chronos-samples</module>
+    <!--<module>chronos-samples</module>-->
   </modules>
 
   <properties>
