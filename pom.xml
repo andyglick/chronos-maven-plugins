@@ -5,13 +5,15 @@
   http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>mojo-parent</artifactId>
-    <version>30</version>
-  </parent>
+  <!--<parent>-->
+    <!--<groupId>org.codehaus.mojo</groupId>-->
+    <!--<artifactId>mojo-parent</artifactId>-->
+    <!--<version>30</version>-->
+  <!--</parent>-->
 
   <name>Chronos</name>
+
+  <groupId>org.codehaus.mojo</groupId>
   <artifactId>chronos</artifactId>
   <version>1.1.0</version>
   <packaging>pom</packaging>
@@ -37,9 +39,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:svn:http://svn.codehaus.org/mojo/tags/chronos-1.1.0</connection>
-    <developerConnection>scm:svn:https://svn.codehaus.org/mojo/tags/chronos-1.1.0</developerConnection>
-    <url>http://svn.codehaus.org/mojo/tags/chronos-1.1.0</url>
+    <connection>scm:git:https://github.com/andyglick/chronos-maven-plugins.git</connection>
+    <developerConnection>scm:git:https://github.com/andyglick/chronos-maven-plugins.git</developerConnection>
+    <url>https://github.com/andyglick/chronos-maven-plugins.git</url>
   </scm>
 
   <issueManagement>
@@ -71,23 +73,40 @@
     </contributor>
   </contributors>
 
+  <prerequisites>
+    <maven>${maven.version}</maven>
+  </prerequisites>
+
+  <properties>
+    <!-- this format is consistent with velocity (used in site xml files) -->
+    <chronosversion>${project.version}</chronosversion>
+    <maven.version>3.3.9</maven.version>
+    <mojo.javadoc.mavenVersion>${project.prerequisites.maven}</mojo.javadoc.mavenVersion>
+    <mojo.java.target>1.5</mojo.java.target>
+
+    <property name="chronos.version" value="${project.version}"/>
+
+    <surefire.version>2.19.1</surefire.version>
+
+  </properties>
+
   <modules>
     <module>chronos-plugincommon</module>
     <module>chronos-report-maven-plugin</module>
     <module>chronos-jmeter-maven-plugin</module>
     <module>chronos-surefire-maven-plugin</module>
-    <!--<module>chronos-samples</module>-->
+    <module>chronos-samples</module>
   </modules>
 
-  <properties>
-    <mojo.javadoc.mavenVersion>${project.prerequisites.maven}</mojo.javadoc.mavenVersion>
-    <mojo.java.target>1.5</mojo.java.target>
-
-    <property name="chronos.version" value="${project.version}"/>
-    <!-- this format is consistent with velocity (used in site xml files) -->
-    <chronosversion>${project.version}</chronosversion>
-  </properties>
-
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <build>
     <!-- this pre-release version fixes problem with duplicate commons-logging in mvn site-deploy -->
@@ -103,7 +122,10 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.6.1</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>2.4</version>
         </plugin>
@@ -136,6 +158,10 @@
               </pluginExecutions>
             </lifecycleMappingMetadata>
           </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefire.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>

@@ -14,7 +14,6 @@
   <version>1.1.0</version>
   <packaging>pom</packaging>
 
-
   <name>Samples</name>
   <description>A collection of small sample projects to test/demonstrate functionality</description>
 
@@ -41,13 +40,30 @@
           <exists>${basedir}</exists>
         </file>
       </activation>
-      <modules>
-        <module>minimalconfig</module>
-        <module>minimalreport</module>
-        <module>historytest</module>
-        <module>multiple</module>
-        <module>timersample</module>
-      </modules>
+
+      <!--<modules>-->
+        <!--<module>minimalconfig</module>-->
+        <!--<module>minimalreport</module>-->
+        <!--<module>historytest</module>-->
+        <!--<module>multiple</module>-->
+        <!--<module>timersample</module>-->
+      <!--</modules>-->
+
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>${surefire.version}</version>
+              <configuration>
+                <skip>true</skip>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+        <plugins>
+        </plugins>
+      </build>
     </profile>
 
   </profiles>

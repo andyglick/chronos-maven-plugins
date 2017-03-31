@@ -39,6 +39,14 @@
 				</executions>
 			</plugin>
 
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+
 		</plugins>
 	</build>
   <reporting>
